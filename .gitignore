@@ -1,0 +1,6 @@
+# bundler
+.bundle
+Gemfile.lock
+
+# rails
+tmp/cache
