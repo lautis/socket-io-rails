@@ -1667,6 +1667,7 @@
     var self = this;
 
     this.handshake(function (sid, heartbeat, close, transports) {
+      if (self.connecting || self.connected) return;
       self.sessionid = sid;
       self.closeTimeout = close * 1000;
       self.heartbeatTimeout = heartbeat * 1000;
@@ -2320,7 +2321,11 @@
    */
 
   WS.prototype.send = function (data) {
-    this.websocket.send(data);
+    try {
+      this.websocket.send(data);
+    } catch(e) {
+      this.onError(e.mssage);
+    }
     return this;
   };
 
